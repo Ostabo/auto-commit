@@ -14,11 +14,12 @@ jobs:
         with:
          persist-credentials: false
          fetch-depth: 0
-      - name: Write date
+      - name: Set date variable
         run: |
           echo "date=$(date +'%Y-%m-%d')" >> $GITHUB_ENV
-          echo "$date" >> $GITHUB_OUTPUT
-          echo $(date +'%Y-%m-%d') > CURRENT_DATE
+      - name: Write into CURRENT_DATE
+        run: |
+          echo $date > CURRENT_DATE
       - name: Commit
         run: |          
           git config --local user.email "${{ secrets.EMAIL }}"
