@@ -16,14 +16,14 @@ jobs:
          fetch-depth: 0
       - name: Write date
         run: |
-          echo "D=$(date +'%Y-%m-%d')" >> $GITHUB_ENV
-          echo $D > CURRENT_DATE
+          echo "date=$(date +'%Y-%m-%d')" >> $GITHUB_ENV
+          echo ${{ env.date }} > CURRENT_DATE
       - name: Commit
         run: |          
           git config --local user.email "${{ secrets.EMAIL }}"
           git config --local user.name "Ostabo"
           git add -A
-          git commit -m "commit of $D"
+          git commit -m "commit of ${{ env.date }}"
       - name: Push
         uses: ad-m/github-push-action@master
         with:
