@@ -17,7 +17,7 @@ jobs:
       - name: Write date
         run: |
           echo "date=$(date +'%Y-%m-%d')" >> $GITHUB_ENV
-          echo ${{ env.date }} > CURRENT_DATE
+          echo ${{ env.date }} >> CURRENT_DATE
       - name: Commit
         run: |          
           git config --local user.email "${{ secrets.EMAIL }}"
