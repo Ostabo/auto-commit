@@ -1,0 +1,31 @@
+name: Auto commit
+
+on:
+  push:
+    branches:
+      - master
+  schedule:
+  - cron: "1 0 * * *"
+jobs:
+  auto_commit:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v3      
+        with:
+         persist-credentials: false
+         fetch-depth: 0
+      - name: Write date
+        run: |
+          echo "D=$(date +'%Y-%m-%d')" >> $GITHUB_ENV
+          echo $D > CURRENT_DATE
+      - name: Commit
+        run: |          
+          git config --local user.email "${{ secrets.EMAIL }}"
+          git config --local user.name "Ostabo"
+          git add -A
+          git commit -m "commit of $D"
+      - name: Push
+        uses: ad-m/github-push-action@master
+        with:
+          directory: "."
+          github_token: ${{ secrets.GITHUB_TOKEN }}
