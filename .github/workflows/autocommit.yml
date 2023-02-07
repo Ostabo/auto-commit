@@ -17,13 +17,13 @@ jobs:
       - name: Write date
         run: |
           echo "date=$(date +'%Y-%m-%d')" >> $GITHUB_ENV
-          echo ${{ env.date }} >> CURRENT_DATE
+          echo "$date" > CURRENT_DATE
       - name: Commit
         run: |          
           git config --local user.email "${{ secrets.EMAIL }}"
           git config --local user.name "Ostabo"
           git add -A
-          git commit -m "commit of ${{ env.date }}"
+          git commit -m "commit of $date"
       - name: Push
         uses: ad-m/github-push-action@master
         with:
